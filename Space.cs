@@ -22,3 +22,4 @@ class Space : Node {
     return (Space) (base.FollowEdge(direction));
   }
 }
+
