@@ -1,10 +1,6 @@
-class Node {
-    protected string name;
-    protected Dictionary<string, Node> edges = new();
-
-    public Node(string name) {
-        this.name = name;
-    }
+class Node(string name) {
+    protected string name = name;
+    protected Dictionary<string, Node> edges = [];
 
     public string GetName() {
         return name;
@@ -14,10 +10,11 @@ class Node {
         edges.Add(name, node);
     }
 
-    public virtual Node FollowEdge(string direction) {
-        if (edges.ContainsKey(direction)) {
-            return edges[direction];
+    public virtual Node? FollowEdge(string direction) {
+        if (edges.TryGetValue(direction, out Node? value)) {
+            return value;
         }
+        
         return null;
     }
 }

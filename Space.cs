@@ -24,14 +24,16 @@ class Space : Node {
 
     public void Welcome() {
         Console.WriteLine("You are now at " + name);
+    }
+
+    public void ShowExits() {
         Console.WriteLine("Current exits are:");
+
         foreach (string exit in edges.Keys) {
             Console.WriteLine(" - " + exit);
         }
     }
-
-    public void Goodbye() {}
-
+    
     public override Space FollowEdge(string direction) {
         return (Space)base.FollowEdge(direction);
     }

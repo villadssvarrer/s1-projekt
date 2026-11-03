@@ -24,6 +24,9 @@ public class Human {
             bmr = (10.0 * Weight) + (6.25 * Height) - (5.0 * Age) - 161.0;
         }
 
+        // Adjust for daily activity (easy to moderate)
+        bmr *= 1.5;
+
         return (uint)bmr;
     }
 
@@ -32,12 +35,16 @@ public class Human {
         return Weight / Math.Pow(heightMeters, 2);
     }
 
+    public static bool IsOverweight(double Bmi) {
+        return Bmi >= 25.0;
+    }
+
     public static string InterpretBmi(double Bmi) {
-        if (Bmi >= 25.0) {
-            return "Overvægt";
+        if (IsOverweight(Bmi)) {
+            return "Overweight";
         }
 
-        return "Normal vægt";
+        return "Normal weight";
     }
 
     public void AddInventory(Meal meal) {

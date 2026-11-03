@@ -6,6 +6,7 @@ class Game {
         Console.WriteLine("Welcome to the World of Calorie!");
 
         context.GetCurrent().Welcome();
+        context.GetCurrent().ShowExits();
 
         while (context.IsDone() == false) {
             Console.Write("> ");
