@@ -1,14 +1,17 @@
 public class Meal {
+    // Attributes
     private string Name;
     private int CaloriesPer100g;
     private int SizeGrams;
     private int CalorieGuess;
 
+    // Constructor
     public Meal(string Name, int CaloriesPer100g) {
         this.Name = Name;
         this.CaloriesPer100g = CaloriesPer100g;
     }
 
+    // Methods
     public string GetName() {
         return Name;
     }

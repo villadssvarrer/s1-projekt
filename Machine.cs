@@ -1,4 +1,5 @@
 public class Machine {
+    // Methods
     public void GetInformation(Human human)
     {
         
