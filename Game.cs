@@ -23,8 +23,6 @@ class Game {
 
             switch (command) {
             case "exit":
-            case "quit":
-            case "bye":
                 context.MakeDone();
                 break;
             case "go":
@@ -37,8 +35,6 @@ class Game {
                 break;
             case "help":
                 Console.WriteLine(" - exit  Exit the program");
-                Console.WriteLine(" - quit  Exit the program");
-                Console.WriteLine(" - bye   Exit the program");
                 Console.WriteLine(" - go    Follow an exit");
                 Console.WriteLine(" - help  Display a help message");
                 break;
