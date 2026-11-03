@@ -27,11 +27,11 @@ class Game {
                 context.MakeDone();
                 break;
             case "go":
-                if (parameters.Length != 1) {
+                if (parameters.Length == 0) {
                     Console.WriteLine("I don't seem to know where that is");
                 }
                 else {
-                    context.Transition(parameters[0]);
+                    context.Transition(string.Join(" ", parameters));
                 }
                 break;
             case "help":
