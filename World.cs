@@ -6,16 +6,16 @@ class World {
         Space exam_room = new Space("Examination room", "exam");
 
         Space breakfast = new Space("Breakfast", "breakfast");
-        Space broom1 = new Space(new Meal("Pasta", 100));
-        Space broom2 = new Space(new Meal("Lasagne", 200));
+        Space broom1 = new Space(new Meal("bacon and eggs", 280));
+        Space broom2 = new Space(new Meal("pancakes", 230));
 
         Space lunch = new Space("Lunch", "lunch");
-        Space lroom1 = new Space(new Meal("Chicken", 300));
-        Space lroom2 = new Space(new Meal("Salad", 150));
+        Space lroom1 = new Space(new Meal("Chicken Sandwich", 250));
+        Space lroom2 = new Space(new Meal("Caesar salad", 150));
 
         Space dinner = new Space("Dinner", "dinner");
-        Space droom1 = new Space(new Meal("Steak", 500));
-        Space droom2 = new Space(new Meal("Soup", 200));
+        Space droom1 = new Space(new Meal("Lasagna", 180));
+        Space droom2 = new Space(new Meal("Margherita pizza", 220));
 
         Space outside = new Space("Outside", "outside");
 
