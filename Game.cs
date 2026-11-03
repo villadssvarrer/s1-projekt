@@ -27,9 +27,8 @@ class Game {
           context.MakeDone();
           break;
         case "go":
-          if (parameters.Length!=1) {
-            Console.WriteLine("I don't seem to know where that is 🤔");
-            return;
+          if (parameters.Length != 1) {
+            Console.WriteLine("I don't seem to know where that is");
           }
           context.Transition(parameters[0]);
           break;
@@ -41,11 +40,11 @@ class Game {
           Console.WriteLine(" - help  Display a help message");
           break;
         default:
-          Console.WriteLine("Woopsie, I don't understand '"+command+"' 😕");
+          Console.WriteLine("Woopsie, I don't understand '"+command+"'");
           break;
       }
     }
-    Console.WriteLine("Game Over 😥");
+    Console.WriteLine("Game Over");
   }
   
   private static string[] GetParameters (string[] input) {
