@@ -3,7 +3,7 @@ class Game {
     static Context context = new Context(world.GetEntry());
 
     static void Main(string[] args) {
-        Console.WriteLine("Welcome to the World of Zuul!");
+        Console.WriteLine("Welcome to the World of Calorie!");
 
         context.GetCurrent().Welcome();
 

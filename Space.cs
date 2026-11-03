@@ -1,13 +1,31 @@
-// Space class for modeling spaces (rooms, caves, ...)
-
 class Space : Node {
-    public Space(String name) : base(name) {}
+    Meal meal;
+    string alias;
+
+    public Space(string name, string alias = null) : base(name) {
+        this.alias = alias;
+    }
+
+    public Space(Meal meal) : base(meal.GetName()) {
+        this.meal = meal;
+    }
+
+    public Meal GetMeal() {
+        return meal;
+    }
+
+    public bool HasMeal() {
+        return meal != null;
+    }
+
+    public void Connect(Space other) {
+        other.AddEdge(alias ?? name.ToLower(), this);
+    }
 
     public void Welcome() {
         Console.WriteLine("You are now at " + name);
-        HashSet<string> exits = edges.Keys.ToHashSet();
         Console.WriteLine("Current exits are:");
-        foreach (String exit in exits) {
+        foreach (string exit in edges.Keys) {
             Console.WriteLine(" - " + exit);
         }
     }
@@ -15,6 +33,6 @@ class Space : Node {
     public void Goodbye() {}
 
     public override Space FollowEdge(string direction) {
-        return (Space)(base.FollowEdge(direction));
+        return (Space)base.FollowEdge(direction);
     }
 }

@@ -1,65 +1,44 @@
-// World class for modeling the entire in-game world
-
 class World {
-    Space entry;
+    private Space entry;
 
     public World() {
-        // Creates the spaces in the world.
-        Space entry = new Space("Entry");
-        Space corridor = new Space("Corridor");
+        Space start = new Space("Beginning of the world", "start");
+        Space exam_room = new Space("Examination room", "exam");
 
-        //Breakfast room, and its two connected rooms
-        Space breakfast = new Space("Room1");
-        Space broom1 = new Space("Room1-1");
-        Space broom2 = new Space("Room1-2");
+        Space breakfast = new Space("Breakfast", "breakfast");
+        Space broom1 = new Space(new Meal("Pasta", 100));
+        Space broom2 = new Space(new Meal("Lasagne", 200));
 
-        //Lunch room, and its two connected rooms
-        Space lunch = new Space("Room2");
-        Space lroom1 = new Space("Room2-1");
-        Space lroom2 = new Space("Room2-2");
+        Space lunch = new Space("Lunch", "lunch");
+        Space lroom1 = new Space(new Meal("Chicken", 300));
+        Space lroom2 = new Space(new Meal("Salad", 150));
 
-        //Dinner room, and its two connected rooms
-        Space dinner = new Space("Room3");
-        Space droom1 = new Space("Room3-1");
-        Space droom2 = new Space("Room3-2");
+        Space dinner = new Space("Dinner", "dinner");
+        Space droom1 = new Space(new Meal("Steak", 500));
+        Space droom2 = new Space(new Meal("Soup", 200));
 
-        //Outside
-        Space outside = new Space("Outside");
+        Space outside = new Space("Outside", "outside");
 
+        exam_room.Connect(start);
+        breakfast.Connect(exam_room);
 
-        // Connects spaces together with edges
+        broom1.Connect(breakfast);
+        broom2.Connect(breakfast);
+        lunch.Connect(broom1);
+        lunch.Connect(broom2);
 
-        entry.AddEdge("door", corridor); //connects entry to corridor
+        lroom1.Connect(lunch);
+        lroom2.Connect(lunch);
+        dinner.Connect(lroom1);
+        dinner.Connect(lroom2);
 
-        corridor.AddEdge("door", breakfast); //connects corridor to breakfast room
+        droom1.Connect(dinner);
+        droom2.Connect(dinner);
+        outside.Connect(droom1);
+        outside.Connect(droom2);
+        start.Connect(outside);
 
-        breakfast.AddEdge("north", broom1); //connects breakfast room to broom1
-
-        breakfast.AddEdge("south", broom2); //connects breakfast room to broom2
-
-        broom1.AddEdge("door", lunch); // connects broom1 to lunch room
-
-        broom2.AddEdge("door", lunch); // connects broom2 to lunch room
-
-        lunch.AddEdge("north", lroom1); // connects lunch room to lroom1
-
-        lunch.AddEdge("south", lroom2); // connects lunch room to lroom2
-
-        lroom1.AddEdge("door", dinner); // connects lroom1 to dinner room
-
-        lroom2.AddEdge("door", dinner); // connects lroom2 to dinner room
-
-        dinner.AddEdge("north", droom1); // connects dinner room to droom1
-
-        dinner.AddEdge("south", droom2); // connects dinner room to droom2
-
-        droom1.AddEdge("door", outside); // connects droom1 to outside
-
-        droom2.AddEdge("door", outside); // connects droom2 to outside
-
-        outside.AddEdge("door", entry); // connects outside to entry
-
-        this.entry = entry;
+        entry = start;
     }
 
     public Space GetEntry() {
