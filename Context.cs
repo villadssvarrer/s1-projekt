@@ -1,3 +1,5 @@
+using System.Xml;
+
 class Context {
     Space current;
     Human human;
@@ -28,13 +30,60 @@ class Context {
         }
 
         current = next;
-        current.Welcome();
+
+        if (!current.HasMeal()) {
+            current.Welcome();
+        }
 
         if (current.GetName() == "Examination room" && !IsInitialized()) {
             InitializeHuman();
         }
 
-        current.ShowExits();
+        PickupMeal(current);
+
+        if (current.GetName() == "Machine") {
+            Machine.PrintResults(human);
+            MakeDone();
+        }
+        else {
+            current.ShowExits();
+        }
+    }
+
+    private void PickupMeal(Space current) {
+        if (!IsInitialized() || !current.HasMeal()) {
+            return;
+        }
+
+        Meal meal = current.GetMeal();
+        string MealName = meal.GetName();
+
+        Console.WriteLine("You picked the " + MealName + " meal");
+
+        string ErrorString = "You must choose a positive whole number, try again.";
+
+        while (true) {
+            Console.WriteLine("How many grams do you want to eat?");
+
+            if (!int.TryParse(Console.ReadLine(), out int grams) || grams <= 0) {
+                Console.WriteLine(ErrorString);
+                continue;
+            }
+
+            Console.WriteLine("How many calories do you think is in the meal?");
+
+            if (!int.TryParse(Console.ReadLine(), out int CalorieGuess) || CalorieGuess <= 0) {
+                Console.WriteLine(ErrorString);
+                continue;
+            }
+
+            meal.AddMealSize(grams);
+            meal.AddCalorieGuess(CalorieGuess);
+            human.AddInventory(meal);
+            break;
+        }
+
+        Console.WriteLine("Added " + MealName + " to inventory");
     }
 
     private void InitializeHuman() {

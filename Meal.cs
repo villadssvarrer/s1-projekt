@@ -5,6 +5,10 @@ public class Meal {
     private int SizeGrams;
     private int CalorieGuess;
 
+    public const int MinPoints = 1;
+    public const int MaxPoints = 5;
+    public const int PointPenaltyKcal = 50;
+
     // Constructor
     public Meal(string Name, int CaloriesPer100g) {
         this.Name = Name;
@@ -39,7 +43,7 @@ public class Meal {
 
         int actual = CaloriesPer100g * SizeGrams / 100;
         int difference = Math.Abs(actual - CalorieGuess);
-        return Math.Max(1, 5 - (difference / 25));
+        return Math.Max(MinPoints, MaxPoints - (difference / PointPenaltyKcal));
     }
 
     public int TotalCalories() {

@@ -17,7 +17,7 @@ class World {
         Space droom1 = new Space(new Meal("Lasagna", 180));
         Space droom2 = new Space(new Meal("Margherita pizza", 220));
 
-        Space outside = new Space("Outside", "outside");
+        Space machine = new Space("Machine", "machine");
 
         exam_room.Connect(start);
         breakfast.Connect(exam_room);
@@ -34,9 +34,8 @@ class World {
 
         droom1.Connect(dinner);
         droom2.Connect(dinner);
-        outside.Connect(droom1);
-        outside.Connect(droom2);
-        start.Connect(outside);
+        machine.Connect(droom1);
+        machine.Connect(droom2);
 
         entry = start;
     }
