@@ -8,8 +8,6 @@ class Game {
         context.GetCurrent().Welcome();
         context.GetCurrent().ShowExits();
 
-        // test github ssh
-
         while (context.IsDone() == false) {
             Console.Write("> ");
 
