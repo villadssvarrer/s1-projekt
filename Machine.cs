@@ -17,7 +17,8 @@ public class Machine {
             TotalCalories += calories;
             TotalPoints += points;
 
-            Console.WriteLine($"{meal.GetName()}: {calories} kcal | {points}/{Meal.MaxPoints} point");
+            string name = meal.GetName();
+            Console.WriteLine($"{name}: {calories} kcal | {points}/{Meal.MaxPoints} point");
         }
 
         Console.WriteLine();
