@@ -1,9 +1,7 @@
-using System.Xml;
-
 class Context {
     Space current;
-    Human human;
-    bool done = false;
+    Human? human;
+    bool running = true;
 
     public Context(Space entry) {
         current = entry;
@@ -13,19 +11,11 @@ class Context {
         return current;
     }
 
-    public Human GetHuman() {
-        return human;
-    }
-
-    public bool IsInitialized() {
-        return human != null;
-    }
-
     public void Transition(string direction) {
-        Space next = current.FollowEdge(direction);
+        Space? next = current.FollowEdge(direction);
 
         if (next == null) {
-            Console.WriteLine("You are confused, and walk in a circle looking for '" + direction + "'.");
+            Console.WriteLine($"Ukendt retning: '{direction}'.");
             return;
         }
 
@@ -35,15 +25,18 @@ class Context {
             current.Welcome();
         }
 
-        if (current.GetName() == "Examination room" && !IsInitialized()) {
+        if (current.GetSpaceType() == SpaceType.Initialize && human == null) {
             InitializeHuman();
         }
 
         PickupMeal(current);
 
-        if (current.GetName() == "Machine") {
-            Machine.PrintResults(human);
-            MakeDone();
+        if (current.GetSpaceType() == SpaceType.Machine) {
+            if (human != null) {
+                Machine.PrintResults(human);
+            }
+            
+            Stop();
         }
         else {
             current.ShowExits();
@@ -51,74 +44,86 @@ class Context {
     }
 
     private void PickupMeal(Space current) {
-        if (!IsInitialized() || !current.HasMeal()) {
+        if (human == null || !current.HasMeal()) {
             return;
         }
 
-        Meal meal = current.GetMeal();
+        Meal? meal = current.GetMeal();
+
+        if (meal == null) {
+            return;
+        }
+
         string MealName = meal.GetName();
 
-        Console.WriteLine("You picked the " + MealName + " meal");
+        Console.WriteLine($"Du valgte {MealName}");
 
-        string ErrorString = "You must choose a positive whole number, try again.";
+        string ErrorString = "Du skal indtaste et positivt heltal, prøv igen.";
 
         while (true) {
-            Console.WriteLine("How many grams do you want to eat?");
+            Console.WriteLine("Hvor mange gram vil du spise?");
 
-            if (!int.TryParse(Console.ReadLine(), out int grams) || grams <= 0) {
+            if (!int.TryParse(Console.ReadLine(), out int Grams) || Grams <= 0) {
                 Console.WriteLine(ErrorString);
                 continue;
             }
 
-            Console.WriteLine("How many calories do you think is in the meal?");
+            Console.WriteLine("Hvor mange kalorier tror du der er i måltidet?");
 
             if (!int.TryParse(Console.ReadLine(), out int CalorieGuess) || CalorieGuess <= 0) {
                 Console.WriteLine(ErrorString);
                 continue;
             }
 
-            meal.AddMealSize(grams);
+            meal.AddMealSize(Grams);
             meal.AddCalorieGuess(CalorieGuess);
             human.AddInventory(meal);
             break;
         }
 
-        Console.WriteLine("Added " + MealName + " to inventory");
+        Console.WriteLine($"Tilføjede {MealName} til inventar");
     }
 
-    private void InitializeHuman() {
-        Console.WriteLine("Please answer a few questions.");
-
-        Console.Write("Age: ");
-        uint age = uint.Parse(Console.ReadLine());
-
-        Console.Write("Height (cm): ");
-        uint height = uint.Parse(Console.ReadLine());
-
-        Console.Write("Weight (kg): ");
-        uint weight = uint.Parse(Console.ReadLine());
-
-        Console.Write("Male? (y/n): ");
-        bool isMale = Console.ReadLine().ToLower() == "y";
-
-        human = new Human();
-        human.Initialize(age, height, weight, isMale);
-
-        double bmi = human.GetBmi();
-
-        Console.WriteLine("BMI: " + bmi.ToString("F1"));
-        Console.WriteLine(Human.InterpretBmi(bmi));
-
-        if (Human.IsOverweight(bmi)) {
-            Console.WriteLine("You are overweight, we recommend being under your daily calorie intake.");
+    private static uint ReadUint(string prompt) {
+        while (true) {
+            Console.Write(prompt);
+            if (uint.TryParse(Console.ReadLine() ?? "", out uint value)) {
+                return value;
+            }
+            Console.WriteLine("Du skal indtaste et positivt heltal, prøv igen.");
         }
     }
 
-    public void MakeDone() {
-        done = true;
+    private void InitializeHuman() {
+        Console.WriteLine();
+        Console.WriteLine("Besvar venligst nogle spørgsmål.");
+        Console.WriteLine();
+        
+        uint Age = ReadUint("Alder: ");
+        uint Height = ReadUint("Højde (cm): ");
+        uint Weight = ReadUint("Vægt (kg): ");
+
+        Console.Write("Mand? (j/n): ");
+        string answer = Console.ReadLine() ?? "";
+        bool IsMale = answer.Equals("j", StringComparison.OrdinalIgnoreCase);
+
+        human = new Human(Age, Height, Weight, IsMale);
+
+        double Bmi = human.GetBmi();
+
+        Console.WriteLine($"BMI: {Bmi:F1}");
+        Console.WriteLine(Human.InterpretBmi(Bmi));
+
+        if (Human.IsOverweight(Bmi)) {
+            Console.WriteLine("Du er overvægtig, vi anbefaler at holde dig under dit daglige kalorieindtag.");
+        }
     }
 
-    public bool IsDone() {
-        return done;
+    public void Stop() {
+        running = false;
+    }
+
+    public bool IsActive() {
+        return running;
     }
 }

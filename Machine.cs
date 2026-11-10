@@ -1,15 +1,14 @@
 public class Machine {
-    static public void PrintResults(Human human) {
-        if (human == null) {
-            return;
-        }
-
+    public static void PrintResults(Human human) {
         List<Meal> meals = human.GetInventoryMeals();
         uint calorieNeed = human.GetCalorieNeed();
 
         int TotalCalories = 0;
         int TotalPoints = 0;
         int maxPossiblePoints = meals.Count * Meal.MaxPoints;
+
+        Console.WriteLine();
+        Console.WriteLine("[Resultater]");
 
         foreach (Meal meal in meals) {
             int calories = meal.TotalCalories();
@@ -18,21 +17,26 @@ public class Machine {
             TotalCalories += calories;
             TotalPoints += points;
 
-            Console.WriteLine(string.Format("{0}: {1} kcal | {2}/{3} points", meal.GetName(), calories, points, Meal.MaxPoints));
+            Console.WriteLine($"{meal.GetName()}: {calories} kcal | {points}/{Meal.MaxPoints} point");
         }
+
+        Console.WriteLine();
+        Console.WriteLine($"Samlet indtag: {TotalCalories} kcal");
+        Console.WriteLine($"Dagligt behov: {calorieNeed} kcal");
 
         int difference = (int)calorieNeed - TotalCalories;
 
         if (difference > 0) {
-            Console.WriteLine("You are " + difference + " kcal under maintenance.");
+            Console.WriteLine($"Du er {difference} kcal under dit daglige behov.");
         }
         else if (difference < 0) {
-            Console.WriteLine("You are " + difference + " kcal over maintenance.");
+            Console.WriteLine($"Du er {Math.Abs(difference)} kcal over dit daglige behov.");
         }
         else {
-            Console.WriteLine("You are on target with your kcal intake.");
+            Console.WriteLine("Du er præcis på dit daglige behov.");
         }
 
-        Console.WriteLine(string.Format("Total points: {0}/{1}", TotalPoints, maxPossiblePoints));
+        Console.WriteLine();
+        Console.WriteLine($"Samlet point: {TotalPoints}/{maxPossiblePoints}");
     }
 }

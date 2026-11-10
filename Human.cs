@@ -6,14 +6,15 @@ public class Human {
     private bool IsMale; 
     private readonly List<Meal> Meals = [];
 
-    // Methods
-    public void Initialize(uint Age, uint Height, uint Weight, bool IsMale) {
-        this.Age = Age;
-        this.Height = Height;
-        this.Weight = Weight;
-        this.IsMale = IsMale;
+    // Constructor
+    public Human(uint age, uint height, uint weight, bool male) {
+        Age = age;
+        Height = height;
+        Weight = weight;
+        IsMale = male;
     }
 
+    // Methods
     public uint GetCalorieNeed() {
         double bmr; // Basal metabolic rate
 
@@ -39,12 +40,12 @@ public class Human {
         return Bmi >= 25.0;
     }
 
-    public static string InterpretBmi(double Bmi) {
-        if (IsOverweight(Bmi)) {
-            return "Overweight";
+    public static string InterpretBmi(double bmi) {
+        if (IsOverweight(bmi)) {
+            return "Overvægtig";
         }
 
-        return "Normal weight";
+        return "Normalvægt";
     }
 
     public void AddInventory(Meal meal) {

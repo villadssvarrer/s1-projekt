@@ -1,16 +1,28 @@
-class Space : Node {
-    Meal meal;
-    string alias;
+enum SpaceType {
+    Default,
+    Initialize,
+    Machine,
+}
 
-    public Space(string name, string alias = null) : base(name) {
+class Space : Node {
+    readonly Meal? meal;
+    readonly string? alias;
+    readonly SpaceType type;
+
+    public Space(string name, string? alias = null, SpaceType type = SpaceType.Default) : base(name) {
         this.alias = alias;
+        this.type = type;
     }
 
     public Space(Meal meal) : base(meal.GetName()) {
         this.meal = meal;
     }
 
-    public Meal GetMeal() {
+    public SpaceType GetSpaceType() {
+        return type;
+    }
+
+    public Meal? GetMeal() {
         return meal;
     }
 
@@ -23,18 +35,19 @@ class Space : Node {
     }
 
     public void Welcome() {
-        Console.WriteLine("You are now at " + name);
+        Console.WriteLine($"Du er nu ved {name}");
     }
 
     public void ShowExits() {
-        Console.WriteLine("Current exits are:");
+        Console.WriteLine();
+        Console.WriteLine("Udgange:");
 
         foreach (string exit in edges.Keys) {
-            Console.WriteLine(" - " + exit);
+            Console.WriteLine($" - {exit}");
         }
     }
-    
-    public override Space FollowEdge(string direction) {
-        return (Space)base.FollowEdge(direction);
+
+    public override Space? FollowEdge(string direction) {
+        return base.FollowEdge(direction) as Space;
     }
 }

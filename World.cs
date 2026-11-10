@@ -2,25 +2,25 @@ class World {
     private Space entry;
 
     public World() {
-        Space start = new Space("Beginning of the world", "start");
-        Space exam_room = new Space("Examination room", "exam");
+        Space start = new Space("Starten af verden", "start");
+        Space registration = new Space("Registrering", "registrer", SpaceType.Initialize);
 
-        Space breakfast = new Space("Breakfast", "breakfast");
-        Space broom1 = new Space(new Meal("bacon and eggs", 280));
-        Space broom2 = new Space(new Meal("pancakes", 230));
+        Space breakfast = new Space("Morgenmad", "morgenmad");
+        Space broom1 = new Space(new Meal("Bacon og æg", 280));
+        Space broom2 = new Space(new Meal("Pandekager", 230));
 
-        Space lunch = new Space("Lunch", "lunch");
-        Space lroom1 = new Space(new Meal("Chicken Sandwich", 250));
-        Space lroom2 = new Space(new Meal("Caesar salad", 150));
+        Space lunch = new Space("Frokost", "frokost");
+        Space lroom1 = new Space(new Meal("Kyllingesandwich", 250));
+        Space lroom2 = new Space(new Meal("Cæsarsalat", 150));
 
-        Space dinner = new Space("Dinner", "dinner");
-        Space droom1 = new Space(new Meal("Lasagna", 180));
+        Space dinner = new Space("Aftensmad", "aftensmad");
+        Space droom1 = new Space(new Meal("Lasagne", 180));
         Space droom2 = new Space(new Meal("Margherita pizza", 220));
 
-        Space machine = new Space("Machine", "machine");
+        Space machine = new Space("Maskine", "maskine", SpaceType.Machine);
 
-        exam_room.Connect(start);
-        breakfast.Connect(exam_room);
+        registration.Connect(start);
+        breakfast.Connect(registration);
 
         broom1.Connect(breakfast);
         broom2.Connect(breakfast);
@@ -44,3 +44,6 @@ class World {
         return entry;
     }
 }
+
+
+
