@@ -98,7 +98,7 @@ class Context {
         Console.WriteLine();
         Console.WriteLine("Besvar venligst nogle spørgsmål.");
         Console.WriteLine();
-        
+
         uint Age = ReadUint("Alder: ");
         uint Height = ReadUint("Højde (cm): ");
         uint Weight = ReadUint("Vægt (kg): ");
@@ -111,7 +111,7 @@ class Context {
 
         double Bmi = human.GetBmi();
 
-        Console.WriteLine($"BMI: {Bmi:F1}");
+        Console.WriteLine($"BMI: {Bmi:F1}"); // F = fixed-point, 1 = decimal places
         Console.WriteLine(Human.InterpretBmi(Bmi));
 
         if (Human.IsOverweight(Bmi)) {
