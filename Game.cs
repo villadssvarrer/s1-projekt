@@ -1,7 +1,4 @@
 class Game {
-    private static World world = new World();
-    private static Context context = new Context(world.GetEntry());
-
     private static void DisplayHelpCommand() {
         var commands = new (string cmd, string desc)[] {
             ("afslut", "Afslutter programmet"),
@@ -21,9 +18,18 @@ class Game {
 
     private static void Main(string[] args) {
         Console.OutputEncoding = System.Text.Encoding.UTF8; // enable danish character support (ø, æ, å)
+
+        World? world = World.create();
+
+        if (world is null) {
+            Console.WriteLine("Kunne ikke indlæse verden.");
+            return;
+        }
+
         Console.WriteLine("Velkommen til World of Calorie!");
         DisplayHelpCommand();
         
+        Context context = new Context(world.GetEntry());
         context.GetCurrent().Welcome();
         context.GetCurrent().ShowExits();
 
