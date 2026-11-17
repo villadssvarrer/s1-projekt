@@ -1,4 +1,4 @@
-public class Machine {
+public abstract class Machine {
     public static void PrintResults(Human human) {
         List<Meal> meals = human.GetInventoryMeals();
         uint calorieNeed = human.GetCalorieNeed();

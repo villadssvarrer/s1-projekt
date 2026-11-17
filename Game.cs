@@ -1,8 +1,8 @@
 class Game {
-    static World world = new World();
-    static Context context = new Context(world.GetEntry());
+    private static World world = new World();
+    private static Context context = new Context(world.GetEntry());
 
-    static void DisplayHelpCommand() {
+    private static void DisplayHelpCommand() {
         var commands = new (string cmd, string desc)[] {
             ("afslut", "Afslutter programmet"),
             ("gå", "Følg en vej"),
@@ -19,7 +19,7 @@ class Game {
         Console.WriteLine();
     }
 
-    static void Main(string[] args) {
+    private static void Main(string[] args) {
         Console.OutputEncoding = System.Text.Encoding.UTF8; // enable danish character support (ø, æ, å)
         Console.WriteLine("Velkommen til World of Calorie!");
         DisplayHelpCommand();
