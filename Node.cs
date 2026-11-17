@@ -1,24 +1,20 @@
-/* Node class for modeling graphs
- */
+class Node(string name) {
+    protected string name = name;
+    protected Dictionary<string, Node> edges = [];
 
-class Node {
-  protected string name;
-  protected Dictionary<string, Node> edges = new Dictionary<string, Node>();
-  
-  public Node (string name) {
-    this.name = name;
-  }
-  
-  public String GetName () {
-    return name;
-  }
-  
-  public void AddEdge (string name, Node node) {
-    edges.Add(name, node);
-  }
-  
-  public virtual Node FollowEdge (string direction) {
-    return edges[direction];
-  }
+    public string GetName() {
+        return name;
+    }
+
+    public void AddEdge(string name, Node node) {
+        edges.Add(name, node);
+    }
+
+    public virtual Node? FollowEdge(string direction) {
+        if (edges.TryGetValue(direction, out Node? value)) {
+            return value;
+        }
+        
+        return null;
+    }
 }
-
