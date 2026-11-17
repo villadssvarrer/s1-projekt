@@ -1,43 +1,54 @@
 class World {
-    private Space entry;
+    private const int min_choices = 2;
+    private const int max_choices = 5;
 
-    public World() {
+    private readonly Space entry;
+
+    private World(Space entry) {
+        this.entry = entry;
+    }
+
+    public static World? create() {
         Space start = new Space("Starten af verden", "start");
         Space registration = new Space("Registrering", "registrer", SpaceType.Initialize);
-
         Space breakfast = new Space("Morgenmad", "morgenmad");
-        Space broom1 = new Space(new Meal("Bacon og æg", 280));
-        Space broom2 = new Space(new Meal("Pandekager", 230));
-
         Space lunch = new Space("Frokost", "frokost");
-        Space lroom1 = new Space(new Meal("Kyllingesandwich", 250));
-        Space lroom2 = new Space(new Meal("Cæsarsalat", 150));
-
         Space dinner = new Space("Aftensmad", "aftensmad");
-        Space droom1 = new Space(new Meal("Lasagne", 180));
-        Space droom2 = new Space(new Meal("Margherita pizza", 220));
-
         Space machine = new Space("Maskine", "maskine", SpaceType.Machine);
 
         registration.Connect(start);
         breakfast.Connect(registration);
 
-        broom1.Connect(breakfast);
-        broom2.Connect(breakfast);
-        lunch.Connect(broom1);
-        lunch.Connect(broom2);
+        if (!add_meal_rooms("meals/breakfast.json", breakfast, lunch)) {
+            return null;
+        }
+        
+        if (!add_meal_rooms("meals/lunch.json", lunch, dinner)) {
+            return null;
+        }
 
-        lroom1.Connect(lunch);
-        lroom2.Connect(lunch);
-        dinner.Connect(lroom1);
-        dinner.Connect(lroom2);
+        if (!add_meal_rooms("meals/dinner.json", dinner, machine)) {
+            return null;
+        }
 
-        droom1.Connect(dinner);
-        droom2.Connect(dinner);
-        machine.Connect(droom1);
-        machine.Connect(droom2);
+        return new World(start);
+    }
 
-        entry = start;
+    private static bool add_meal_rooms(string path, Space from, Space to) {
+        int count = Random.Shared.Next(min_choices, max_choices + 1);
+        List<Meal> meals = new MealPool(path).GetRandom(count);
+
+        if (meals.Count < min_choices) {
+            return false;
+        }
+
+        foreach (Meal meal in meals) {
+            Space room = new Space(meal);
+            room.Connect(from);
+            to.Connect(room);
+        }
+        
+        return true;
     }
 
     public Space GetEntry() {

@@ -1,0 +1,12 @@
+[
+    { "name": "Lasagne", "calories_per_100g": 180 },
+    { "name": "Margherita pizza", "calories_per_100g": 220 },
+    { "name": "Spaghetti bolognese", "calories_per_100g": 150 },
+    { "name": "Chicken curry with rice", "calories_per_100g": 140 },
+    { "name": "Steak", "calories_per_100g": 250 },
+    { "name": "Salmon fillet", "calories_per_100g": 208 },
+    { "name": "Fish and chips", "calories_per_100g": 230 },
+    { "name": "Beef stew", "calories_per_100g": 100 },
+    { "name": "Fried rice", "calories_per_100g": 165 },
+    { "name": "Roast chicken", "calories_per_100g": 190 }
+]
