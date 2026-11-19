@@ -58,8 +58,6 @@ public class Human {
         return Meals;
     }
 
-    
-
     public void Playerprofile()
     {
 
