@@ -3,7 +3,9 @@ class Game {
         var commands = new (string cmd, string desc)[] {
             ("afslut", "Afslutter programmet"),
             ("gå", "Følg en vej"),
-            ("hjælp", "Vis en hjælp besked"),
+            ("information" , "viser ens profil"),
+            ("hjælp", "Vis en hjælp besked")
+            
         };
 
         Console.WriteLine();
@@ -61,6 +63,10 @@ class Game {
             case "hjælp":
                 DisplayHelpCommand();
                 break;
+            case "information":
+                context.ShowPlayerProfile();
+                break;
+
             default:
                 Console.WriteLine($"Ukendt kommando: '{command}'");
                 break;

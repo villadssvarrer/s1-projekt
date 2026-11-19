@@ -126,4 +126,15 @@ class Context {
     public bool IsActive() {
         return running;
     }
+
+public void ShowPlayerProfile() {
+    if (human == null) {
+        Console.WriteLine("Du skal først oprette din profil.");
+        return;
+    }
+
+    human.Playerprofile();
 }
+
+}
+
