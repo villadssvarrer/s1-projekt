@@ -6,12 +6,20 @@ enum SpaceType {
 
 class Space : Node {
     readonly Meal? meal;
+    InfoCard? card;
+
     readonly string? alias;
     readonly SpaceType type;
 
-    public Space(string name, string? alias = null, SpaceType type = SpaceType.Default) : base(name) {
+    public Space(
+        string name,
+        string? alias = null,
+        SpaceType type = SpaceType.Default,
+        InfoCard? card = null
+    ) : base(name) {
         this.alias = alias;
         this.type = type;
+        this.card = card;
     }
 
     public Space(Meal meal) : base(meal.GetName()) {
@@ -28,6 +36,20 @@ class Space : Node {
 
     public bool HasMeal() {
         return meal != null;
+    }
+
+    public bool HasCard() {
+        return card != null;
+    }
+
+    public InfoCard? TakeCard() {
+        if (card == null) {
+            return null;
+        }
+
+        InfoCard taken = card;
+        card = null;
+        return taken;
     }
 
     public void Connect(Space other) {
