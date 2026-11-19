@@ -4,8 +4,10 @@ class Game {
             ("afslut", "Afslutter programmet"),
             ("gå", "Følg en vej"),
             ("information" , "viser ens profil"),
-            ("hjælp", "Vis en hjælp besked")
-            
+            ("hjælp", "Vis en hjælp besked"),
+            ("saml", "Saml infokort op"),
+            ("spis", "Spis et måltid"),
+
         };
 
         Console.WriteLine();
@@ -66,8 +68,15 @@ class Game {
             case "information":
                 context.ShowPlayerProfile();
                 break;
-
-            default:
+            case "saml":
+                //context.CollectInfoCard();
+                Console.WriteLine("saml kommando ikke implementeret endnu");
+                break;
+            case "spis":
+                //context.EatMeal();
+                Console.WriteLine("spis kommando ikke implementeret endnu");
+                break;
+                default:
                 Console.WriteLine($"Ukendt kommando: '{command}'");
                 break;
             }
