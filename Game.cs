@@ -4,6 +4,8 @@ class Game {
             ("afslut", "Afslutter programmet"),
             ("gå", "Følg en vej"),
             ("hjælp", "Vis en hjælp besked"),
+            ("mad", "Vis spist mad"),
+            ("infokort", "Vis opsamlet informationskort")
         };
 
         Console.WriteLine();
@@ -61,6 +63,15 @@ class Game {
             case "hjælp":
                 DisplayHelpCommand();
                 break;
+                
+            case "mad":
+                context.ShowFood();
+                break;
+
+            case "infokort":
+                context.ShowInfoCard();
+                break;
+                
             default:
                 Console.WriteLine($"Ukendt kommando: '{command}'");
                 break;

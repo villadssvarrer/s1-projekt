@@ -126,4 +126,20 @@ class Context {
     public bool IsActive() {
         return running;
     }
+
+    public void ShowFood() {
+        if (human == null) {
+                Console.WriteLine("Du har ikke spist endnu");
+                return;
+            }
+        human.ShowFoodProfile();
+    }
+
+    public void ShowInfoCard(){
+        if (human == null){
+            Console.WriteLine("Du har endnu ikke samlet et Informations kort op");
+            return;
+        }
+        human.InfoCardProfile();
+    }
 }

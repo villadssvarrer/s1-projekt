@@ -5,6 +5,7 @@ public class Human {
     private uint Weight; // kg
     private bool IsMale; 
     private readonly List<Meal> Meals = [];
+    private readonly List<InfoCard> Cards = [];
 
     // Constructor
     public Human(uint age, uint height, uint weight, bool male) {
@@ -54,5 +55,29 @@ public class Human {
 
     public List<Meal> GetInventoryMeals() {
         return Meals;
+    }
+
+    public void AddInventoryInfoCard (InfoCard card) {
+        Cards.Add(card);
+    }
+
+    public List<InfoCard> GetInventoryInfoCard() {
+        return Cards;
+    }
+
+    public void ShowFoodProfile() {
+        foreach (Meal meal in Meals) {
+            int calories = meal.TotalCalories();
+            string name = meal.GetName();
+            Console.WriteLine($"{name}: {calories} kcal");
+        }
+    }
+
+    public void InfoCardProfile() {
+        foreach (InfoCard card in Cards){
+            string title = card.GetTitle();
+            string text = card.GetInformation();
+            Console.WriteLine($"{title}: {text}");
+        }
     }
 }
