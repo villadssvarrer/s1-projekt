@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+
 public class Human {
     // Attributes
     private uint Age; // years
@@ -13,7 +15,7 @@ public class Human {
         Weight = weight;
         IsMale = male;
     }
-
+    
     // Methods
     public uint GetCalorieNeed() {
         double bmr; // Basal metabolic rate
@@ -55,4 +57,28 @@ public class Human {
     public List<Meal> GetInventoryMeals() {
         return Meals;
     }
+
+    
+
+    public void Playerprofile()
+    {
+
+        Console.WriteLine("Dine oplysninger er:");
+
+        Console.WriteLine();
+
+        Console.WriteLine("Din vægt er: " + Weight+ " kg");
+        
+        Console.WriteLine("Din højde er: "+ Height+" cm");
+        
+        Console.WriteLine("Du er en "+ (IsMale ? "mand" : "kvinde"));
+        
+        Console.WriteLine("Dit bmi: " + GetBmi().ToString("F1"));
+        
+        Console.WriteLine("Du er " + InterpretBmi(GetBmi()));
+        
+        Console.WriteLine("Du skal spise " + GetCalorieNeed() + " kcal om dagen");
+
+    }
+
 }
