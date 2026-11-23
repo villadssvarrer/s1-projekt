@@ -127,14 +127,28 @@ class Context {
         return running;
     }
 
-public void ShowPlayerProfile() {
-    if (human == null) {
-        Console.WriteLine("Du skal først oprette din profil.");
-        return;
+    public void ShowFood() {
+        if (human == null) {
+                Console.WriteLine("Du har ikke spist endnu");
+                return;
+            }
+        human.ShowFoodProfile();
     }
 
-    human.Playerprofile();
-}
+    public void ShowInfoCard(){
+        if (human == null){
+            Console.WriteLine("Du har endnu ikke samlet et Informations kort op");
+            return;
+        }
+        human.InfoCardProfile();
+    }
 
+    public void ShowPlayerProfile() {
+        if (human == null) {
+            Console.WriteLine("Du skal først oprette din profil.");
+            return;
+        }
+    
+        human.Playerprofile();
+    }
 }
-

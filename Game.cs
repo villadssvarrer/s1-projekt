@@ -3,7 +3,8 @@ class Game {
         var commands = new (string cmd, string desc)[] {
             ("afslut", "Afslutter programmet"),
             ("hjælp", "Vis en hjælp besked"),
-            ("gå", "Følg en vej"),
+            ("mad", "Vis spist mad"),
+            ("infokort", "Vis opsamlet informationskort
             ("saml", "Saml infokort op"),
             ("spis", "Spis et måltid"),
             ("information" , "viser ens profil"),
@@ -64,17 +65,29 @@ class Game {
             case "hjælp":
                 DisplayHelpCommand();
                 break;
+                
+            case "mad":
+                context.ShowFood();
+                break;
+
+            case "infokort":
+                context.ShowInfoCard();
+                break;
+
             case "information":
                 context.ShowPlayerProfile();
                 break;
+
             case "saml":
                 //context.CollectInfoCard();
                 Console.WriteLine("saml kommando ikke implementeret endnu");
                 break;
+
             case "spis":
                 //context.EatMeal();
                 Console.WriteLine("spis kommando ikke implementeret endnu");
                 break;
+                
             default:
                 Console.WriteLine($"Ukendt kommando: '{command}'");
                 break;

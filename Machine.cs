@@ -2,6 +2,7 @@ public abstract class Machine {
     public static void PrintResults(Human human) {
         List<Meal> meals = human.GetInventoryMeals();
         uint calorieNeed = human.GetCalorieNeed();
+        List<InfoCard> cards = human.GetInventoryInfoCard(); 
 
         int TotalCalories = 0;
         int TotalPoints = 0;
@@ -39,5 +40,11 @@ public abstract class Machine {
 
         Console.WriteLine();
         Console.WriteLine($"Samlet point: {TotalPoints}/{maxPossiblePoints}");
+
+        foreach (InfoCard card in cards){
+            string title = card.GetTitle();
+            string text = card.GetInformation();
+            Console.WriteLine($"{title}: {text}");
+        }
     }
 }
