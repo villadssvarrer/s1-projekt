@@ -2,7 +2,6 @@ class Game {
     private static void DisplayHelpCommand() {
         var commands = new (string cmd, string desc)[] {
             ("afslut", "Afslutter programmet"),
-            ("gå", "Følg en vej"),
             ("hjælp", "Vis en hjælp besked"),
             ("mad", "Vis spist mad"),
             ("infokort", "Vis opsamlet informationskort")

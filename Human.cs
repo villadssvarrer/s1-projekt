@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+
 public class Human {
     // Attributes
     private uint Age; // years
@@ -14,7 +16,7 @@ public class Human {
         Weight = weight;
         IsMale = male;
     }
-
+    
     // Methods
     public uint GetCalorieNeed() {
         double bmr; // Basal metabolic rate
