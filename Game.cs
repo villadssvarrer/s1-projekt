@@ -4,7 +4,10 @@ class Game {
             ("afslut", "Afslutter programmet"),
             ("hjælp", "Vis en hjælp besked"),
             ("mad", "Vis spist mad"),
-            ("infokort", "Vis opsamlet informationskort")
+            ("infokort", "Vis opsamlet informationskort
+            ("saml", "Saml infokort op"),
+            ("spis", "Spis et måltid"),
+            ("information" , "viser ens profil"),
         };
 
         Console.WriteLine();
@@ -69,6 +72,20 @@ class Game {
 
             case "infokort":
                 context.ShowInfoCard();
+                break;
+
+            case "information":
+                context.ShowPlayerProfile();
+                break;
+
+            case "saml":
+                //context.CollectInfoCard();
+                Console.WriteLine("saml kommando ikke implementeret endnu");
+                break;
+
+            case "spis":
+                //context.EatMeal();
+                Console.WriteLine("spis kommando ikke implementeret endnu");
                 break;
                 
             default:
