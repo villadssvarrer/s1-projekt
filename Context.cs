@@ -19,11 +19,13 @@ class Context {
             return;
         }
 
-        current = next;
-
-        if (!current.HasMeal()) {
-            current.Welcome();
+        if (next.HasMeal()) {
+            Console.WriteLine($"Du kan ikke gå til '{direction}', brug 'spis {direction}' i stedet.");
+            return;
         }
+
+        current = next;
+        current.Welcome();
 
         if (current.GetSpaceType() == SpaceType.Initialize && human == null) {
             InitializeHuman();
@@ -77,7 +79,7 @@ class Context {
 
             meal.AddMealSize(Grams);
             meal.AddCalorieGuess(CalorieGuess);
-            human.AddInventory(meal);
+            human.inventory.AddMeal(meal);
             break;
         }
 
@@ -87,9 +89,11 @@ class Context {
     private static uint ReadUint(string prompt) {
         while (true) {
             Console.Write(prompt);
+
             if (uint.TryParse(Console.ReadLine() ?? "", out uint value)) {
                 return value;
             }
+
             Console.WriteLine("Du skal indtaste et positivt heltal, prøv igen.");
         }
     }
@@ -129,26 +133,67 @@ class Context {
 
     public void ShowFood() {
         if (human == null) {
-                Console.WriteLine("Du har ikke spist endnu");
-                return;
-            }
-        human.ShowFoodProfile();
+            Console.WriteLine("Du har ikke spist endnu");
+            return;
+        }
+
+        human.PrintMeals();
     }
 
-    public void ShowInfoCard(){
-        if (human == null){
+    public void ShowCards(){
+        if (human == null) {
             Console.WriteLine("Du har endnu ikke samlet et Informations kort op");
             return;
         }
-        human.InfoCardProfile();
+        
+        if (!human.PrintCards()) {
+            Console.WriteLine("Du har endnu ikke samlet et Informations kort op");
+        }
     }
 
-    public void ShowPlayerProfile() {
+    public void ShowProfile() {
         if (human == null) {
             Console.WriteLine("Du skal først oprette din profil.");
             return;
         }
     
-        human.Playerprofile();
+        human.PrintProfile();
+    }
+
+    public void PickupCard() {
+        if (human == null) {
+            Console.WriteLine("Du skal først oprette din profil.");
+            return;
+        }
+
+        InfoCard? card = current.TakeCard();
+
+        if (card == null) {
+            Console.WriteLine("Der er ingen infokort i dette rum.");
+            return;
+        }
+
+        human.inventory.AddCard(card);
+    }
+
+    public void EatMeal(string? MealName) {
+        if (human == null) {
+            Console.WriteLine("Du skal først oprette din profil.");
+            return;
+        }
+
+        if (MealName == null) {
+            Console.WriteLine("Angiv hvad du vil spise, f.eks. 'spis croissant'.");
+            return;
+        }
+
+        Space? space = current.FollowEdge(MealName);
+
+        if (space == null || !space.HasMeal()) {
+            Console.WriteLine($"Der er ingen mad ved navn '{MealName}' her.");
+            return;
+        }
+
+        PickupMeal(space);
     }
 }

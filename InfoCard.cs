@@ -14,5 +14,4 @@ public class InfoCard {
     public string GetInformation(){
         return text;
     }
-    
 }

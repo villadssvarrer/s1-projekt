@@ -1,13 +1,10 @@
-using System.Security.Cryptography;
-
 public class Human {
     // Attributes
     private uint Age; // years
     private uint Height; // cm
     private uint Weight; // kg
     private bool IsMale; 
-    private readonly List<Meal> Meals = [];
-    private readonly List<InfoCard> Cards = [];
+    public readonly Inventory inventory = new Inventory();
 
     // Constructor
     public Human(uint age, uint height, uint weight, bool male) {
@@ -51,55 +48,40 @@ public class Human {
         return "Normalvægt";
     }
 
-    public void AddInventory(Meal meal) {
-        Meals.Add(meal);
-    }
-
-    public List<Meal> GetInventoryMeals() {
-        return Meals;
-    }
-
-    public void AddInventoryInfoCard (InfoCard card) {
-        Cards.Add(card);
-    }
-
-    public List<InfoCard> GetInventoryInfoCard() {
-        return Cards;
-    }
-
-    public void ShowFoodProfile() {
-        foreach (Meal meal in Meals) {
+    public void PrintMeals() {
+        foreach (Meal meal in inventory.GetMeals()) {
             int calories = meal.TotalCalories();
             string name = meal.GetName();
             Console.WriteLine($"{name}: {calories} kcal");
         }
     }
 
-    public void InfoCardProfile() {
-        foreach (InfoCard card in Cards){
+    public bool PrintCards() {
+        List<InfoCard> cards = inventory.GetCards();
+
+        if (cards.Count == 0) {
+            return false;
+        }
+
+        foreach (InfoCard card in cards){
             string title = card.GetTitle();
             string text = card.GetInformation();
             Console.WriteLine($"{title}: {text}");
         }
+
+        return true;
     }
 
-    public void Playerprofile()
-        {
-            Console.WriteLine("Dine oplysninger er:");
-    
-            Console.WriteLine();
-    
-            Console.WriteLine("Din vægt er: " + Weight+ " kg");
-            
-            Console.WriteLine("Din højde er: "+ Height+" cm");
-            
-            Console.WriteLine("Du er en "+ (IsMale ? "mand" : "kvinde"));
-            
-            Console.WriteLine("Dit bmi: " + GetBmi().ToString("F1"));
-            
-            Console.WriteLine("Du er " + InterpretBmi(GetBmi()));
-            
-            Console.WriteLine("Du skal spise " + GetCalorieNeed() + " kcal om dagen");
-    
-        }
+    public void PrintProfile() {
+        Console.WriteLine("Dine oplysninger er:");
+        Console.WriteLine();
+
+        Console.WriteLine("Din vægt er: " + Weight + " kg");
+        Console.WriteLine("Din højde er: " + Height + " cm");
+        
+        Console.WriteLine("Du er en " + (IsMale ? "mand" : "kvinde"));
+        Console.WriteLine("Dit bmi: " + GetBmi().ToString("F1"));
+        Console.WriteLine("Du er " + InterpretBmi(GetBmi()));
+        Console.WriteLine("Du skal spise " + GetCalorieNeed() + " kcal om dagen");
+    }
 }
