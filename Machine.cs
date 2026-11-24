@@ -1,8 +1,8 @@
 public abstract class Machine {
     public static void PrintResults(Human human) {
-        List<Meal> meals = human.GetInventoryMeals();
         uint calorieNeed = human.GetCalorieNeed();
-        List<InfoCard> cards = human.GetInventoryInfoCard(); 
+        List<Meal> meals = human.inventory.GetMeals();
+        List<InfoCard> cards = human.inventory.GetCards(); 
 
         int TotalCalories = 0;
         int TotalPoints = 0;

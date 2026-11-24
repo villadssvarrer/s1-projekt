@@ -58,6 +58,10 @@ class Space : Node {
 
     public void Welcome() {
         Console.WriteLine($"Du er nu ved {name}");
+
+        if (HasCard()) {
+            Console.WriteLine("Der et infokort i dette rum, husk samle det op ved brug af 'saml' kommandoen");
+        }
     }
 
     public void ShowExits() {

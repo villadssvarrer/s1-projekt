@@ -4,7 +4,7 @@ class Game {
             ("afslut", "Afslutter programmet"),
             ("hjælp", "Vis en hjælp besked"),
             ("mad", "Vis spist mad"),
-            ("infokort", "Vis opsamlet informationskort
+            ("infokort", "Vis opsamlet informationskort"),
             ("saml", "Saml infokort op"),
             ("spis", "Spis et måltid"),
             ("information" , "viser ens profil"),
@@ -54,6 +54,7 @@ class Game {
             case "afslut":
                 context.Stop();
                 break;
+
             case "gå":
                 if (parameters.Length == 0) {
                     Console.WriteLine("Ukendt rum");
@@ -62,6 +63,7 @@ class Game {
                     context.Transition(string.Join(" ", parameters));
                 }
                 break;
+
             case "hjælp":
                 DisplayHelpCommand();
                 break;
@@ -71,21 +73,19 @@ class Game {
                 break;
 
             case "infokort":
-                context.ShowInfoCard();
+                context.ShowCards();
                 break;
 
             case "information":
-                context.ShowPlayerProfile();
+                context.ShowProfile();
                 break;
 
             case "saml":
-                //context.CollectInfoCard();
-                Console.WriteLine("saml kommando ikke implementeret endnu");
+                context.PickupCard();
                 break;
 
             case "spis":
-                //context.EatMeal();
-                Console.WriteLine("spis kommando ikke implementeret endnu");
+                context.EatMeal(parameters.Length > 0 ? string.Join(" ", parameters) : null);
                 break;
                 
             default:
