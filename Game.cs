@@ -4,7 +4,7 @@ class Game {
             ("afslut", "Afslutter programmet"),
             ("hjælp", "Vis en hjælp besked"),
             ("mad", "Vis spist mad"),
-            ("infokort", "Vis opsamlet informationskort
+            ("infokort", "Vis opsamlet informationskort"),
             ("saml", "Saml infokort op"),
             ("spis", "Spis et måltid"),
             ("information" , "viser ens profil"),
